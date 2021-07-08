@@ -1,11 +1,11 @@
-package com.nitok.netcrackercourse.week1.bones;
+package com.nitok.netcrackercourse.week2.bones;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class BonesGame {
-    List<BonesPlayer> players = new ArrayList<>();
+    List<Player> players = new ArrayList<>();
     private final int bonesCount;
 
     public BonesGame(int playerCount, int bonesCount) {
@@ -22,15 +22,15 @@ public class BonesGame {
         players.add(new ComputerBonesPlayer());
     }
 
-    private BonesPlayer makeStep(int round, int startnum) {
+    private Player makeStep(int round, int startnum) {
         //На каждом раунде игроки ходят по очереди, начиная с первого, либо с победителя пред. раунда
         System.out.println("Начало " + round + " раунда");
-        BonesPlayer bestPlayer = null;
+        Player bestPlayer = null;
         int bestSum = 0;
         int i = 0; //счетчик обхода игроков
         int j = startnum; //индекс текущего игрока
         while (i < players.size()) {
-            BonesPlayer player = players.get(j);
+            Player player = players.get(j);
             System.out.println(player.getName() + ", кидайте кости");
             int sum = player.takeBones(bonesCount);
             System.out.println(player.getName() + " выкинул " + sum);
@@ -56,9 +56,8 @@ public class BonesGame {
         int round = 1;
         int startPlayerId = 0;
         while (true) {
-            BonesPlayer winner = makeStep(round, startPlayerId);
+            Player winner = makeStep(round, startPlayerId);
             if (isTotalWon(winner)) {
-                //игра не закончится, пока не будет найден победитель
                 System.out.println("победитель " + winner.getName());
                 return;
             }
@@ -67,7 +66,7 @@ public class BonesGame {
         }
     }
 
-    private boolean isTotalWon(BonesPlayer player) {
+    private boolean isTotalWon(Player player) {
         return player.getWin() >= 7;
     }
 
